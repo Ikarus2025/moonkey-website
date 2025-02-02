@@ -16,16 +16,16 @@ export default function Home() {
     useEffect(() => {
         const fetchBnbPrice = async () => {
             try {
-                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=eur");
+                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=eur&precision=4");
                 const data = await response.json();
-                setBnbPrice(data.binancecoin.eur);
+                setBnbPrice(parseFloat(data.binancecoin.eur)); // Konvertiere zu Float für exakte Berechnung
             } catch (error) {
                 console.error("Fehler beim Abrufen des BNB-Preises:", error);
             }
         };
 
         fetchBnbPrice();
-        const interval = setInterval(fetchBnbPrice, 60000); // Preis alle 60 Sekunden aktualisieren
+        const interval = setInterval(fetchBnbPrice, 30000); // Preis alle 30 Sekunden aktualisieren
 
         return () => clearInterval(interval);
     }, []);
@@ -78,9 +78,9 @@ export default function Home() {
             <p className="text-lg mt-4 text-gray-300">Sichere dir jetzt $MNKY Tokens vor dem Launch!</p>
 
             {/* Countdown Timer */}
-            <div className="mt-6 bg-gray-800 p-4 rounded-xl shadow-lg text-center">
+            <div className="mt-6 bg-gray-800 p-6 rounded-xl shadow-lg text-center">
                 <h2 className="text-2xl font-bold text-yellow-300">📅 Token Release Countdown</h2>
-                <p className="text-3xl font-bold text-white mt-2">{formatTime(timeLeft)}</p>
+                <p className="text-4xl font-bold text-white mt-2">{formatTime(timeLeft)}</p>
             </div>
 
             {/* Wallet-Verbindung */}
@@ -90,9 +90,9 @@ export default function Home() {
                     Verbinde Wallet
                 </button>
             ) : (
-                <div className="mt-6 bg-gray-800 p-4 rounded-xl shadow-lg">
+                <div className="mt-6 bg-gray-800 p-6 rounded-xl shadow-lg">
                     <p className="text-green-400 font-bold">✅ Wallet verbunden: {walletAddress}</p>
-                    <p className="text-gray-400">Aktueller BNB-Preis: <span className="text-white font-bold">{bnbPrice.toFixed(2)} EUR</span></p>
+                    <p className="text-gray-400 mt-2">Aktueller BNB-Preis: <span className="text-white font-bold">{bnbPrice.toFixed(2)} EUR</span></p>
                     <input
                         type="number"
                         placeholder="BNB eingeben"
@@ -106,16 +106,7 @@ export default function Home() {
                     </button>
                 </div>
             )}
-
-            {/* Tokenomics */}
-            <div className="mt-12 w-full max-w-3xl text-center">
-                <h2 className="text-3xl font-bold text-yellow-300">📊 Tokenomics</h2>
-                <p className="text-gray-400 mt-2">Total Supply: <span className="text-white font-bold">1,000,000,000 MNKY</span></p>
-                <p className="text-gray-400">Presale: <span className="text-white font-bold">40%</span></p>
-                <p className="text-gray-400">Liquidity: <span className="text-white font-bold">30%</span></p>
-                <p className="text-gray-400">Team: <span className="text-white font-bold">15%</span></p>
-                <p className="text-gray-400">Marketing & Entwicklung: <span className="text-white font-bold">15%</span></p>
-            </div>
         </div>
     );
 }
+
