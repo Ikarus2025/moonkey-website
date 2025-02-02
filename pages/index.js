@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
+if (typeof window === "undefined") {
+    console.log("Next.js läuft auf Server – Keine Browser-Elemente geladen.");
+}
+
+
 export default function Home() {
     const [walletConnected, setWalletConnected] = useState(false);
     const [walletAddress, setWalletAddress] = useState(null);
