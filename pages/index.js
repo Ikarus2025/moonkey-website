@@ -1,3 +1,10 @@
+import dynamic from 'next/dynamic';
+const SafeHome = dynamic(() => import('./indexSafe'), { ssr: false });
+
+export default function Home() {
+    return <SafeHome />;
+}
+
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
