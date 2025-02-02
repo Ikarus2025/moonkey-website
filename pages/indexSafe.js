@@ -90,33 +90,85 @@ export default function MoonkeyPresale() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-black to-gray-900 text-white p-6">
-            <h1 className="text-6xl font-extrabold text-yellow-400 mt-10">🚀 MOONKEY PRESALE 🚀</h1>
-            <p className="text-lg mt-4 text-gray-300 text-center max-w-2xl">
-                Get your $MNKY tokens before launch and ride the moon wave!
-            </p>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-black to-gray-900 text-white p-6 relative overflow-hidden">
+            {/* Hintergrundanimationen */}
+            <div className="absolute inset-0 bg-[url('/images/space-bg.jpg')] bg-cover bg-center opacity-30 animate-pan"></div>
+            <div className="absolute inset-0 bg-gradient-radial from-yellow-400/10 to-transparent animate-pulse"></div>
+            <div className="absolute inset-0 bg-[url('/images/stars.png')] bg-cover bg-center opacity-50 animate-twinkle"></div>
 
-            <div className="mt-10 flex flex-col items-center bg-gray-800 p-8 rounded-xl shadow-xl text-center max-w-lg">
-                <h2 className="text-3xl font-bold text-yellow-300">🌕 Presale is LIVE!</h2>
-                <p className="text-xl mt-4 text-white">1 MNKY = 0.005 EUR</p>
-                <p className="text-lg text-gray-400 mt-2">Current BNB Price: ${bnbPrice ? bnbPrice.toFixed(2) : "Loading..."}</p>
+            {/* Hauptcontainer */}
+            <div className="relative z-10 text-center max-w-4xl w-full">
+                {/* Titel */}
+                <h1 className="text-6xl font-extrabold text-yellow-400 mt-10 animate-float">
+                    🚀 MOONKEY PRESALE 🚀
+                </h1>
+                <p className="text-lg mt-4 text-gray-300 text-center max-w-2xl mx-auto">
+                    Get your $MNKY tokens before launch and ride the moon wave! 🌕
+                </p>
 
-                {!walletConnected ? (
-                    <button className="mt-6 bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-6 rounded-full text-lg"
-                            onClick={connectWallet}>
-                        Connect Wallet
-                    </button>
-                ) : (
-                    <div className="mt-6">
-                        <input type="number" placeholder="Enter BNB amount" className="mt-4 p-3 text-black rounded w-full"
-                               value={bnbAmount} onChange={handleBnbChange} />
-                        <p className="mt-2 text-yellow-400 font-bold">You receive: {mnkyAmount.toFixed(2)} MNKY</p>
-                        <button className="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg"
-                                onClick={buyTokens}>
-                            Buy Now
+                {/* Presale-Box */}
+                <div className="mt-10 flex flex-col items-center bg-gray-800/75 p-8 rounded-2xl shadow-2xl text-center backdrop-blur-lg border border-yellow-400/20 transform transition-all duration-500 hover:scale-105">
+                    <h2 className="text-3xl font-bold text-yellow-300 animate-bounce">
+                        🌕 Presale is LIVE!
+                    </h2>
+                    <p className="text-xl mt-4 text-white">
+                        1 MNKY = 0.005 EUR
+                    </p>
+                    <p className="text-lg text-gray-400 mt-2">
+                        Current BNB Price: ${bnbPrice ? bnbPrice.toFixed(2) : "Loading..."}
+                    </p>
+
+                    {!walletConnected ? (
+                        <button
+                            className="mt-6 bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-6 rounded-full text-lg transform transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-yellow-500/50"
+                            onClick={connectWallet}
+                        >
+                            Connect Wallet
                         </button>
-                    </div>
-                )}
+                    ) : (
+                        <div className="mt-6 w-full max-w-md">
+                            <input
+                                type="number"
+                                placeholder="Enter BNB amount"
+                                className="mt-4 p-3 text-black rounded w-full focus:outline-none focus:ring-2 focus:ring-yellow-500 shadow-lg"
+                                value={bnbAmount}
+                                onChange={handleBnbChange}
+                            />
+                            <p className="mt-2 text-yellow-400 font-bold">
+                                You receive: {mnkyAmount.toFixed(2)} MNKY
+                            </p>
+                            <button
+                                className="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transform transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-green-500/50"
+                                onClick={buyTokens}
+                            >
+                                Buy Now
+                            </button>
+                        </div>
+                    )}
+                </div>
+
+                {/* Countdown-Timer (optional) */}
+                <div className="mt-8 text-yellow-400 text-xl font-bold">
+                    ⏳ Presale ends in: 2 days, 14 hours, 23 minutes
+                </div>
+
+                {/* Social Media Links (optional) */}
+                <div className="mt-8 flex space-x-6 justify-center">
+                    <a href="#" className="text-yellow-400 hover:text-yellow-500 transition-all">
+                        <i className="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="#" className="text-yellow-400 hover:text-yellow-500 transition-all">
+                        <i className="fab fa-telegram text-2xl"></i>
+                    </a>
+                    <a href="#" className="text-yellow-400 hover:text-yellow-500 transition-all">
+                        <i className="fab fa-discord text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            {/* Footer */}
+            <div className="absolute bottom-0 w-full text-center py-4 text-gray-400">
+                &copy; 2023 Moonkey Token. All rights reserved.
             </div>
         </div>
     );
