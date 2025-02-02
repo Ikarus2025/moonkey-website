@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
-    "postinstall": "rm -rf .next && next build"
   },
   "dependencies": {
     "next": "^13.4.0",
