@@ -50,9 +50,14 @@ const connectWallet = async () => {
 
     try {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-        await window.ethereum.request({ method: "wallet_requestPermissions", params: [{ eth_accounts: {} }] });
-
         const accounts = await provider.send("eth_requestAccounts", []);
+        const network = await provider.getNetwork();
+
+        if (network.chainId !== 56) { // 56 = Binance Smart Chain Mainnet
+            alert("Please switch to Binance Smart Chain (BSC Mainnet).");
+            return;
+        }
+
         if (accounts.length > 0) {
             setWalletConnected(true);
             setWalletAddress(accounts[0]);
@@ -63,6 +68,7 @@ const connectWallet = async () => {
         alert("Wallet connection failed! Please try again.");
     }
 };
+
 
 
 
