@@ -43,21 +43,27 @@ export default function Home() {
     }, []);
 
 const connectWallet = async () => {
-    if (typeof window.ethereum === "undefined") return alert("Bitte installiere MetaMask.");
+    if (typeof window.ethereum === "undefined") {
+        alert("Please install MetaMask to continue.");
+        return;
+    }
 
     try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
         await window.ethereum.request({ method: "wallet_requestPermissions", params: [{ eth_accounts: {} }] });
-        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
 
+        const accounts = await provider.send("eth_requestAccounts", []);
         if (accounts.length > 0) {
             setWalletConnected(true);
             setWalletAddress(accounts[0]);
-            window.location.reload(); // Wallet-Verbindung erzwingen mit Hard Refresh
+            alert(`Wallet connected: ${accounts[0]}`);
         }
     } catch (error) {
-        console.error("Wallet Verbindung fehlgeschlagen:", error);
+        console.error("Wallet connection failed:", error);
+        alert("Wallet connection failed! Please try again.");
     }
 };
+
 
 
     const handleBnbChange = (e) => {
