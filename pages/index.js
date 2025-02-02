@@ -6,10 +6,10 @@ export default function Home() {
     const [walletAddress, setWalletAddress] = useState(null);
     const [bnbAmount, setBnbAmount] = useState("");
     const [mnkyAmount, setMnkyAmount] = useState(0);
-    const tokenPrice = 200000; // 1 BNB = 200,000 MNKY (angepasst für den Presale)
-
-    // Countdown Timer
-    const releaseDate = new Date("2024-03-01T00:00:00").getTime(); // RELEASE-DATUM HIER ÄNDERN
+    const tokenPrice = 200; // 1 BNB = 200,000 MNKY (Presale Preis: 0.005 pro MNKY)
+    
+    // Countdown Timer - Release am 15. März 2025
+    const releaseDate = new Date("2025-03-15T00:00:00").getTime();
     const [timeLeft, setTimeLeft] = useState(releaseDate - new Date().getTime());
 
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function Home() {
     const handleBnbChange = (e) => {
         const value = e.target.value;
         setBnbAmount(value);
-        setMnkyAmount(value * tokenPrice);
+        setMnkyAmount(value / 0.005); // 1 MNKY kostet 0.005 BNB
     };
 
     // Funktion zur Formatierung des Countdowns
@@ -78,7 +78,7 @@ export default function Home() {
                         value={bnbAmount}
                         onChange={handleBnbChange}
                     />
-                    <p className="mt-2 text-yellow-400 font-bold">Du erhältst: {mnkyAmount} MNKY</p>
+                    <p className="mt-2 text-yellow-400 font-bold">Du erhältst: {mnkyAmount.toFixed(2)} MNKY</p>
                     <button className="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg">
                         Jetzt kaufen
                     </button>
@@ -108,3 +108,4 @@ export default function Home() {
         </div>
     );
 }
+
