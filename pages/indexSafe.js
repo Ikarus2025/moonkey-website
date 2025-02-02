@@ -5,7 +5,7 @@ import { FaTwitter, FaTelegram, FaDiscord } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const SMART_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000";
-const ABI = []; 
+const ABI = [];
 
 export default function MoonkeyPresale() {
     const [walletConnected, setWalletConnected] = useState(false);
@@ -87,9 +87,10 @@ export default function MoonkeyPresale() {
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}
-            className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-black to-gray-900 text-white p-6">
+            className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: "url('/DALL·E-2025-02-02-19.15.png')" }}>
             <motion.div animate={{ y: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 2 }}>
-                <Image src="/moonkey.png" alt="Moonkey Astronaut" width={200} height={200} className="mb-6" />
+                <Image src="/moonkey.png" alt="Moonkey Astronaut" width={250} height={250} className="mb-6" />
             </motion.div>
             <h1 className="text-6xl font-extrabold text-yellow-400 mt-10 animate-bounce">🚀 MOONKEY PRESALE 🚀</h1>
             <p className="text-lg mt-4 text-gray-300 text-center max-w-2xl">
@@ -116,12 +117,6 @@ export default function MoonkeyPresale() {
                         </motion.button>
                     </div>
                 )}
-            </div>
-
-            <div className="mt-12 flex space-x-6">
-                <FaTwitter className="text-4xl text-blue-400 hover:text-blue-600 cursor-pointer" />
-                <FaTelegram className="text-4xl text-blue-300 hover:text-blue-500 cursor-pointer" />
-                <FaDiscord className="text-4xl text-indigo-400 hover:text-indigo-600 cursor-pointer" />
             </div>
         </motion.div>
     );
