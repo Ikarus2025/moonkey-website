@@ -42,16 +42,23 @@ export default function Home() {
         return () => clearInterval(interval);
     }, []);
 
-    const connectWallet = async () => {
-        if (typeof window.ethereum === "undefined") return alert("Bitte installiere MetaMask.");
-        try {
-            const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+const connectWallet = async () => {
+    if (typeof window.ethereum === "undefined") return alert("Bitte installiere MetaMask.");
+
+    try {
+        await window.ethereum.request({ method: "wallet_requestPermissions", params: [{ eth_accounts: {} }] });
+        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+
+        if (accounts.length > 0) {
             setWalletConnected(true);
             setWalletAddress(accounts[0]);
-        } catch (error) {
-            console.error("Wallet Verbindung fehlgeschlagen:", error);
+            window.location.reload(); // Wallet-Verbindung erzwingen mit Hard Refresh
         }
-    };
+    } catch (error) {
+        console.error("Wallet Verbindung fehlgeschlagen:", error);
+    }
+};
+
 
     const handleBnbChange = (e) => {
         const value = e.target.value;
